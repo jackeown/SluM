@@ -8,7 +8,10 @@ Slurm job-array submission. It copies everything the experiment needs to the
 cluster, measures and limits each solver call with `runsolver`, and provides
 separate tools for live monitoring and incremental result synchronization.
 
-## 🧭 Overview
+<a id="overview"></a>
+
+<details open>
+<summary><h2>🧭 Overview</h2></summary>
 
 ### 🔄 Workflow
 
@@ -27,14 +30,17 @@ scripts, Slurm commands, and the included `runsolver` binary directly.
 | --- | --- |
 | Try a complete working experiment | [Quick start](#quick-start) |
 | Configure a solver and generate a submission | [Create your own submission](#create-your-own-submission) |
-| Follow current and past jobs | [Monitor jobs](#monitor-jobs) |
-| Download partial or completed results | [Sync results](#sync-results) |
+| Follow current and past jobs | [Monitor jobs](#monitor-and-retrieve-jobs) |
+| Download partial or completed results | [Sync results](#monitor-and-retrieve-jobs) |
 | Build Vampire, E, or Drodi | [Prover examples](examples/README.md) |
-| Package a larger solver layout | [Structuring larger submissions](#structuring-larger-submissions) |
+| Package a larger solver layout | [Structuring larger submissions](#advanced-usage) |
+
+</details>
 
 <a id="quick-start"></a>
 
-## 🚀 Quick start
+<details open>
+<summary><h2>🚀 Quick start</h2></summary>
 
 ### ✅ Requirements
 
@@ -97,9 +103,12 @@ Slurm accepts the array. `make monitor` opens the interactive dashboard.
 See [Prover examples](examples/README.md) for the E, Drodi, and combined
 three-prover examples, as well as the available Makefile targets.
 
+</details>
+
 <a id="create-your-own-submission"></a>
 
-## 🛠️ Create your own submission
+<details>
+<summary><h2>🛠️ Create your own submission</h2></summary>
 
 ### 1. 🔧 Build runsolver
 
@@ -242,7 +251,12 @@ ssh slurmy squeue -j 123456
 ssh slurmy sacct -j 123456
 ```
 
-## 📊 Monitor and retrieve jobs
+</details>
+
+<a id="monitor-and-retrieve-jobs"></a>
+
+<details>
+<summary><h2>📊 Monitor and retrieve jobs</h2></summary>
 
 <a id="monitor-jobs"></a>
 
@@ -350,7 +364,12 @@ SZS status such as `Theorem`, `Unsatisfiable`, `Satisfiable`, or
 `CounterSatisfiable`. A solver without SZS status lines can still be 100%
 complete while reporting 0% solved.
 
-## 🧠 Advanced usage
+</details>
+
+<a id="advanced-usage"></a>
+
+<details>
+<summary><h2>🧠 Advanced usage</h2></summary>
 
 <a id="structuring-larger-submissions"></a>
 
@@ -465,7 +484,12 @@ starts with `--`:
 Use `--host HOST` when the cluster SSH name is not `slurmy`. Run
 `./slum.py --help` for every option.
 
-## 📂 Results
+</details>
+
+<a id="results"></a>
+
+<details>
+<summary><h2>📂 Results</h2></summary>
 
 The remote directory contains:
 
@@ -498,3 +522,5 @@ The summary column names are listed in `metadata.json` under
 
 Completed calls are skipped if an array element is rerun. Inputs are copied
 under `rootfs/` with their original absolute paths mirrored there.
+
+</details>

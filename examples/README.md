@@ -7,7 +7,10 @@ the resulting Slurm jobs.
 For installation, custom solver descriptions, and the full command reference,
 see the [main SluM documentation](../README.md).
 
-## 📚 Available examples
+<a id="available-examples"></a>
+
+<details open>
+<summary><h2>📚 Available examples</h2></summary>
 
 | Directory | What `make` obtains and builds |
 | --- | --- |
@@ -16,7 +19,12 @@ see the [main SluM documentation](../README.md).
 | [`example-drodi`](example-drodi/) | Drodi 4.1.1 from its [official CASC-J13 source archive](https://tptp.org/CASC/J13/SystemSources/Drodi---4.1.1.tgz); the archive is checked against the SHA-256 recorded in the Makefile before compilation |
 | [`example-combined`](example-combined/) | All three provers in one submission, run on five easy and five hard problems with a three-second CPU limit per call |
 
-## 🚀 Single-prover workflow
+</details>
+
+<a id="single-prover-workflow"></a>
+
+<details>
+<summary><h2>🚀 Single-prover workflow</h2></summary>
 
 Each single-prover example contains the same three real TPTP problems and a
 Makefile. The examples do not contain checked-in prover binaries or source
@@ -66,7 +74,12 @@ ALG002-1.p  Unsatisfiable
 ALG299-1.p  Satisfiable
 ```
 
-## 🔬 Combined example
+</details>
+
+<a id="combined-example"></a>
+
+<details>
+<summary><h2>🔬 Combined example</h2></summary>
 
 The combined example exercises multiple solver descriptions in one SluM job.
 Its `problems/easy/` directory contains five low-rated TPTP problems, while
@@ -110,3 +123,5 @@ The expected three-second test pattern is that every prover solves the easy
 set, while the hard set produces a mixture of solutions and ordinary time
 limits. Exact hard-problem results can change when the Makefiles fetch newer
 Vampire or E revisions.
+
+</details>
