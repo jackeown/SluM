@@ -8,9 +8,9 @@ Slurm job-array submission. It copies everything the experiment needs to the
 cluster, measures and limits each solver call with `runsolver`, and provides
 separate tools for live monitoring and incremental result synchronization.
 
-## Overview
+## 🧭 Overview
 
-### Workflow
+### 🔄 Workflow
 
 1. Describe one or more solver command lines and select the problem files.
 2. Run `slum.py` locally to generate `submit.sh` and `submit.sh.files/`.
@@ -21,7 +21,7 @@ separate tools for live monitoring and incremental result synchronization.
 Python runs only on the local machine. Compute nodes run the generated Bash
 scripts, Slurm commands, and the included `runsolver` binary directly.
 
-### Where to start
+### 🗺️ Where to start
 
 | Goal | Section |
 | --- | --- |
@@ -29,12 +29,14 @@ scripts, Slurm commands, and the included `runsolver` binary directly.
 | Configure a solver and generate a submission | [Create your own submission](#create-your-own-submission) |
 | Follow current and past jobs | [Monitor jobs](#monitor-jobs) |
 | Download partial or completed results | [Sync results](#sync-results) |
-| Build Vampire, E, or Drodi | [Prover examples](#prover-examples) |
+| Build Vampire, E, or Drodi | [Prover examples](examples/README.md) |
 | Package a larger solver layout | [Structuring larger submissions](#structuring-larger-submissions) |
 
-## Quick start
+<a id="quick-start"></a>
 
-### Requirements
+## 🚀 Quick start
+
+### ✅ Requirements
 
 On the local machine:
 
@@ -52,7 +54,7 @@ libraries, and CMake 3.14 or newer.
 
 `slurmy` is the default SSH host. It can be an alias in `~/.ssh/config`.
 
-### Install the Python dependencies
+### 📦 Install the Python dependencies
 
 `slum.py` and `slum-sync.py` use only the Python standard library. The
 `slum-monitor.py` dashboard additionally needs Textual, which is installed
@@ -76,7 +78,7 @@ python -m pip install -r requirements.txt
 If you use `.venv`, activate it again in each new terminal before running the
 dashboard.
 
-### Run an included example
+### 🧪 Run an included example
 
 The Vampire example provides the shortest complete path from source code to a
 submitted experiment:
@@ -92,12 +94,14 @@ make monitor
 submission files. `make submit` transfers them to `slurmy` and returns once
 Slurm accepts the array. `make monitor` opens the interactive dashboard.
 
-See [Prover examples](#prover-examples) for the E, Drodi, and combined
+See [Prover examples](examples/README.md) for the E, Drodi, and combined
 three-prover examples, as well as the available Makefile targets.
 
-## Create your own submission
+<a id="create-your-own-submission"></a>
 
-### 1. Build runsolver
+## 🛠️ Create your own submission
+
+### 1. 🔧 Build runsolver
 
 Build the portable static runsolver binary for inclusion in the generated
 submission files:
@@ -110,7 +114,7 @@ This creates `runsolver-build/runsolver`. SluM copies it to
 `submit.sh.files/runsolver`. The build helper needs a C++ compiler, `make`,
 `curl`, and standard archive tools.
 
-### 2. Describe the solver
+### 2. 📝 Describe the solver
 
 Create `vampire.solver`:
 
@@ -158,7 +162,7 @@ sources.
 Add more command lines to define more configurations. Repeat `--solver` to use
 more solver description files.
 
-### 3. Generate the submission files
+### 3. ⚙️ Generate the submission files
 
 ```bash
 slum_args=(
@@ -201,7 +205,7 @@ payloads or remote programs hidden inside SSH command strings. Keep
 The generated `submit.sh` documents its fixed configuration, companion files,
 and each packaging and submission stage directly in comments.
 
-### 4. Inspect and submit
+### 4. 🚀 Inspect and submit
 
 The most useful files to inspect are:
 
@@ -238,9 +242,11 @@ ssh slurmy squeue -j 123456
 ssh slurmy sacct -j 123456
 ```
 
-## Monitor and retrieve jobs
+## 📊 Monitor and retrieve jobs
 
-### Monitor jobs
+<a id="monitor-jobs"></a>
+
+### 👀 Monitor jobs
 
 Open the interactive dashboard on your laptop:
 
@@ -297,7 +303,9 @@ The dashboard distinguishes a solver `time-limit` from Slurm's `TIMEOUT`
 state. The former is expected; the latter means Slurm stopped an array task
 before SluM saved all of its results, so it is an execution error.
 
-### Sync results
+<a id="sync-results"></a>
+
+### 📥 Sync results
 
 Download the latest SluM job from `slurmy`:
 
@@ -342,109 +350,11 @@ SZS status such as `Theorem`, `Unsatisfiable`, `Satisfiable`, or
 `CounterSatisfiable`. A solver without SZS status lines can still be 100%
 complete while reporting 0% solved.
 
-## Prover examples
+## 🧠 Advanced usage
 
-[`examples/`](examples/) contains ready-to-build examples for three theorem
-provers:
+<a id="structuring-larger-submissions"></a>
 
-| Directory | What `make` obtains and builds |
-| --- | --- |
-| [`example-vampire`](examples/example-vampire/) | The latest Vampire source from its [official Git repository](https://github.com/vprover/vampire), including the CaDiCaL and VIRAS submodules; built as a static CMake release binary for cluster portability |
-| [`example-e`](examples/example-e/) | The latest E source from its [official Git repository](https://github.com/eprover/eprover); configured and rebuilt as a first-order prover |
-| [`example-drodi`](examples/example-drodi/) | Drodi 4.1.1 from its [official CASC-J13 source archive](https://tptp.org/CASC/J13/SystemSources/Drodi---4.1.1.tgz); the archive is checked against the SHA-256 recorded in the Makefile before compilation |
-| [`example-combined`](examples/example-combined/) | All three provers in one submission, run on five easy and five hard problems with a three-second CPU limit per call |
-
-### Single-prover workflow
-
-Each single-prover example contains the same three real TPTP problems and a
-Makefile. The examples do not contain checked-in prover binaries or source
-trees. On the first run, `make` downloads and builds the required prover or
-provers, builds runsolver if necessary, and then calls `slum.py` to create
-`submit.sh` and `submit.sh.files/`.
-
-For example, build, inspect, and submit Vampire:
-
-```bash
-cd examples/example-vampire
-make
-less submit.sh
-less submit.sh.files/slurm_job.sh
-less submit.sh.files/batches/batch_000000.sh
-make submit
-make monitor
-```
-
-Use `examples/example-e` or `examples/example-drodi` in the first command to
-run the corresponding example. The single-prover Makefiles have the same
-targets:
-
-| Command | Effect |
-| --- | --- |
-| `make` or `make all` | Build the prover and runsolver if needed, then generate the submission files |
-| `make build` | Build the prover and runsolver without generating a submission |
-| `make submit` | Run the generated `submit.sh` and return after Slurm accepts the job array |
-| `make monitor` | Open the SluM dashboard for `slurmy` |
-| `make clean` | Remove only `submit.sh` and `submit.sh.files/` |
-| `make distclean` | Also remove that example's downloaded source and built prover binary |
-
-Connect to the TU Wien VPN before running `submit.sh` if `slurmy` is not
-reachable directly. Each single-prover example submits two array elements to
-`CPU-amd`. Vampire and E should quickly report the following expected statuses;
-Drodi also proves the first two within the example limit but may time out on
-the satisfiable problem:
-
-```text
-PUZ001+1.p  Theorem
-ALG002-1.p  Unsatisfiable
-ALG299-1.p  Satisfiable
-```
-
-### Combined example
-
-The combined example exercises multiple solver descriptions in one SluM job.
-Its `problems/easy/` directory contains five low-rated TPTP problems, while
-`problems/hard/` contains five problems taken from the locally curated hard
-benchmark set. All ten are self-contained FOF or CNF files with no external
-axiom includes.
-
-```text
-easy: ALG002-1, PUZ001+1, PUZ002-1, PUZ003-1, PUZ004-1
-hard: MPT0554+1, MPT1048+1, MPT1388+1, MPT1787+1, MPT1887+1
-```
-
-Running `make` builds the three single-prover examples and generates 30 calls:
-each of Vampire, E, and Drodi on every problem. The calls are divided among six
-Slurm array tasks, with a three-second CPU limit and six-second wall-clock
-limit per prover call.
-
-```bash
-cd examples/example-combined
-make
-make submit
-make sync
-```
-
-`make sync` follows the latest remote SluM job until it completes and stores
-the incrementally downloaded results under `slum-results/` at the repository
-root. To avoid relying on which remote job is newest, pass the SluM ID printed
-by `make submit` explicitly:
-
-```bash
-make sync SLUM_ID=alice_1786464000_12345
-```
-
-Use `make monitor` instead when you want to watch the same run interactively.
-`make distclean` removes the generated submission together with the source
-trees and binaries shared with the three single-prover examples.
-
-The expected three-second test pattern is that every prover solves the easy
-set, while the hard set produces a mixture of solutions and ordinary time
-limits. Exact hard-problem results can change when the Makefiles fetch newer
-Vampire or E revisions.
-
-## Advanced usage
-
-### Structuring larger submissions
+### 📁 Structuring larger submissions
 
 Treat the solver root named on the first line of a solver description as a
 self-contained directory. Put every solver-side file needed on the cluster
@@ -508,7 +418,7 @@ or selected problems between generating and running `submit.sh`. For multiple
 independent solver layouts, make one description file per root and repeat
 `--solver`.
 
-### How jobs are divided
+### 🧩 How jobs are divided
 
 SluM expands every solver command over the selected problems. `--batch-size`
 controls how many calls one array element runs sequentially. `--max-parallel`
@@ -530,7 +440,7 @@ at most 10 elements running at once
 Each individual call still gets its own runsolver CPU, wall-clock, memory, and
 process-tree limits.
 
-### Limits and requests
+### 🎛️ Limits and requests
 
 - `--cpu-limit`, `--wc-limit`, and `--mem-limit` limit each solver call through
   runsolver.
@@ -555,7 +465,7 @@ starts with `--`:
 Use `--host HOST` when the cluster SSH name is not `slurmy`. Run
 `./slum.py --help` for every option.
 
-## Results
+## 📂 Results
 
 The remote directory contains:
 
