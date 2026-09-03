@@ -26,6 +26,8 @@ see the [main SluM documentation](../README.md).
 <details>
 <summary><strong>🚀 Single-prover workflow</strong></summary>
 
+<blockquote>
+
 Each single-prover example contains the same three real TPTP problems and a
 Makefile. The examples do not contain checked-in prover binaries or source
 trees. On the first run, `make` downloads and builds the prover, builds
@@ -79,6 +81,8 @@ ALG299-1.p  Satisfiable
 ```
 
 </details>
+
+</blockquote>
 
 </details>
 

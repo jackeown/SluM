@@ -13,6 +13,8 @@ separate tools for live monitoring and incremental result synchronization.
 <details>
 <summary><strong>🧭 Overview</strong></summary>
 
+<blockquote>
+
 <details>
 <summary><strong>🔄 Workflow</strong></summary>
 
@@ -41,12 +43,16 @@ scripts, Slurm commands, and the included `runsolver` binary directly.
 
 </details>
 
+</blockquote>
+
 </details>
 
 <a id="quick-start"></a>
 
 <details>
 <summary><strong>🚀 Quick start</strong></summary>
+
+<blockquote>
 
 <details>
 <summary><strong>✅ Requirements</strong></summary>
@@ -118,12 +124,16 @@ three-prover examples, as well as the available Makefile targets.
 
 </details>
 
+</blockquote>
+
 </details>
 
 <a id="create-your-own-submission"></a>
 
 <details>
 <summary><strong>🛠️ Create your own submission</strong></summary>
+
+<blockquote>
 
 <details>
 <summary><strong>1. 🔧 Build runsolver</strong></summary>
@@ -278,12 +288,16 @@ ssh slurmy sacct -j 123456
 
 </details>
 
+</blockquote>
+
 </details>
 
 <a id="monitor-and-retrieve-jobs"></a>
 
 <details>
 <summary><strong>📊 Monitor and retrieve jobs</strong></summary>
+
+<blockquote>
 
 <a id="monitor-jobs"></a>
 
@@ -397,12 +411,16 @@ complete while reporting 0% solved.
 
 </details>
 
+</blockquote>
+
 </details>
 
 <a id="advanced-usage"></a>
 
 <details>
 <summary><strong>🧠 Advanced usage</strong></summary>
+
+<blockquote>
 
 <a id="structuring-larger-submissions"></a>
 
@@ -525,6 +543,8 @@ Use `--host HOST` when the cluster SSH name is not `slurmy`. Run
 `./slum.py --help` for every option.
 
 </details>
+
+</blockquote>
 
 </details>
 
