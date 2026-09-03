@@ -28,12 +28,11 @@ scripts, Slurm commands, and the included `runsolver` binary directly.
 <blockquote>
 
 <details>
-<summary><strong>✅ Requirements</strong></summary>
+<summary><strong>✅ Requirements and dependencies</strong></summary>
 
 On the local machine:
 
 - Python 3.9+, Bash, `ssh`, `scp`, `rsync`, and GNU `tar`
-- `pip` when installing the optional monitoring dashboard dependency
 - Non-interactive SSH access to the cluster
 
 On the cluster:
@@ -46,32 +45,17 @@ libraries, and CMake 3.14 or newer.
 
 `slurmy` is the default SSH host. It can be an alias in `~/.ssh/config`.
 
-</details>
-
-<details>
-<summary><strong>📦 Install the Python dependencies</strong></summary>
-
 `slum.py` and `slum-sync.py` use only the Python standard library. The
 `slum-monitor.py` dashboard additionally needs Textual, which is installed
-through `requirements.txt`.
-
-Using a virtual environment is recommended:
+through `requirements.txt`:
 
 ```bash
+# Optional: skip these two lines to use your current Python environment.
 python -m venv .venv
 source .venv/bin/activate
+
 python -m pip install -r requirements.txt
 ```
-
-The virtual environment is optional. To install the dependencies into your
-current Python environment instead, run:
-
-```bash
-python -m pip install -r requirements.txt
-```
-
-If you use `.venv`, activate it again in each new terminal before running the
-dashboard.
 
 </details>
 
