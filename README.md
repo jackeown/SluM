@@ -11,12 +11,14 @@ separate tools for live monitoring and incremental result synchronization.
 <a id="overview"></a>
 
 <details>
-<summary><strong>🧭 Overview</strong></summary>
+<summary><strong>🧭 Overview</strong> <a href="#overview" title="Permalink to Overview">🔗</a></summary>
 
 <blockquote>
 
+<a id="workflow"></a>
+
 <details>
-<summary><strong>🔄 Workflow</strong></summary>
+<summary><strong>🔄 Workflow</strong> <a href="#workflow" title="Permalink to Workflow">🔗</a></summary>
 
 1. Describe one or more solver command lines and select the problem files.
 2. Run `slum.py` locally to generate `submit.sh` and `submit.sh.files/`.
@@ -29,20 +31,6 @@ scripts, Slurm commands, and the included `runsolver` binary directly.
 
 </details>
 
-<details>
-<summary><strong>🗺️ Where to start</strong></summary>
-
-| Goal | Section |
-| --- | --- |
-| Try a complete working experiment | [Quick start](#quick-start) |
-| Configure a solver and generate a submission | [Create your own submission](#create-your-own-submission) |
-| Follow current and past jobs | [Monitor jobs](#monitor-and-retrieve-jobs) |
-| Download partial or completed results | [Sync results](#monitor-and-retrieve-jobs) |
-| Build Vampire, E, or Drodi | [Prover examples](examples/README.md) |
-| Package a larger solver layout | [Structuring larger submissions](#advanced-usage) |
-
-</details>
-
 </blockquote>
 
 </details>
@@ -50,12 +38,14 @@ scripts, Slurm commands, and the included `runsolver` binary directly.
 <a id="quick-start"></a>
 
 <details>
-<summary><strong>🚀 Quick start</strong></summary>
+<summary><strong>🚀 Quick start</strong> <a href="#quick-start" title="Permalink to Quick start">🔗</a></summary>
 
 <blockquote>
 
+<a id="requirements"></a>
+
 <details>
-<summary><strong>✅ Requirements</strong></summary>
+<summary><strong>✅ Requirements</strong> <a href="#requirements" title="Permalink to Requirements">🔗</a></summary>
 
 On the local machine:
 
@@ -75,8 +65,10 @@ libraries, and CMake 3.14 or newer.
 
 </details>
 
+<a id="install-python-dependencies"></a>
+
 <details>
-<summary><strong>📦 Install the Python dependencies</strong></summary>
+<summary><strong>📦 Install the Python dependencies</strong> <a href="#install-python-dependencies" title="Permalink to Install the Python dependencies">🔗</a></summary>
 
 `slum.py` and `slum-sync.py` use only the Python standard library. The
 `slum-monitor.py` dashboard additionally needs Textual, which is installed
@@ -102,8 +94,10 @@ dashboard.
 
 </details>
 
+<a id="run-an-included-example"></a>
+
 <details>
-<summary><strong>🧪 Run an included example</strong></summary>
+<summary><strong>🧪 Run an included example</strong> <a href="#run-an-included-example" title="Permalink to Run an included example">🔗</a></summary>
 
 The Vampire example provides the shortest complete path from source code to a
 submitted experiment:
@@ -131,12 +125,14 @@ three-prover examples, as well as the available Makefile targets.
 <a id="create-your-own-submission"></a>
 
 <details>
-<summary><strong>🛠️ Create your own submission</strong></summary>
+<summary><strong>🛠️ Create your own submission</strong> <a href="#create-your-own-submission" title="Permalink to Create your own submission">🔗</a></summary>
 
 <blockquote>
 
+<a id="build-runsolver"></a>
+
 <details>
-<summary><strong>1. 🔧 Build runsolver</strong></summary>
+<summary><strong>1. 🔧 Build runsolver</strong> <a href="#build-runsolver" title="Permalink to Build runsolver">🔗</a></summary>
 
 Build the portable static runsolver binary for inclusion in the generated
 submission files:
@@ -151,8 +147,10 @@ This creates `runsolver-build/runsolver`. SluM copies it to
 
 </details>
 
+<a id="describe-the-solver"></a>
+
 <details>
-<summary><strong>2. 📝 Describe the solver</strong></summary>
+<summary><strong>2. 📝 Describe the solver</strong> <a href="#describe-the-solver" title="Permalink to Describe the solver">🔗</a></summary>
 
 Create `vampire.solver`:
 
@@ -202,8 +200,10 @@ more solver description files.
 
 </details>
 
+<a id="generate-the-submission-files"></a>
+
 <details>
-<summary><strong>3. ⚙️ Generate the submission files</strong></summary>
+<summary><strong>3. ⚙️ Generate the submission files</strong> <a href="#generate-the-submission-files" title="Permalink to Generate the submission files">🔗</a></summary>
 
 ```bash
 slum_args=(
@@ -248,8 +248,10 @@ and each packaging and submission stage directly in comments.
 
 </details>
 
+<a id="inspect-and-submit"></a>
+
 <details>
-<summary><strong>4. 🚀 Inspect and submit</strong></summary>
+<summary><strong>4. 🚀 Inspect and submit</strong> <a href="#inspect-and-submit" title="Permalink to Inspect and submit">🔗</a></summary>
 
 The most useful files to inspect are:
 
@@ -295,14 +297,14 @@ ssh slurmy sacct -j 123456
 <a id="monitor-and-retrieve-jobs"></a>
 
 <details>
-<summary><strong>📊 Monitor and retrieve jobs</strong></summary>
+<summary><strong>📊 Monitor and retrieve jobs</strong> <a href="#monitor-and-retrieve-jobs" title="Permalink to Monitor and retrieve jobs">🔗</a></summary>
 
 <blockquote>
 
 <a id="monitor-jobs"></a>
 
 <details>
-<summary><strong>👀 Monitor jobs</strong></summary>
+<summary><strong>👀 Monitor jobs</strong> <a href="#monitor-jobs" title="Permalink to Monitor jobs">🔗</a></summary>
 
 Open the interactive dashboard on your laptop:
 
@@ -364,7 +366,7 @@ before SluM saved all of its results, so it is an execution error.
 <a id="sync-results"></a>
 
 <details>
-<summary><strong>📥 Sync results</strong></summary>
+<summary><strong>📥 Sync results</strong> <a href="#sync-results" title="Permalink to Sync results">🔗</a></summary>
 
 Download the latest SluM job from `slurmy`:
 
@@ -418,14 +420,14 @@ complete while reporting 0% solved.
 <a id="advanced-usage"></a>
 
 <details>
-<summary><strong>🧠 Advanced usage</strong></summary>
+<summary><strong>🧠 Advanced usage</strong> <a href="#advanced-usage" title="Permalink to Advanced usage">🔗</a></summary>
 
 <blockquote>
 
 <a id="structuring-larger-submissions"></a>
 
 <details>
-<summary><strong>📁 Structuring larger submissions</strong></summary>
+<summary><strong>📁 Structuring larger submissions</strong> <a href="#structuring-larger-submissions" title="Permalink to Structuring larger submissions">🔗</a></summary>
 
 Treat the solver root named on the first line of a solver description as a
 self-contained directory. Put every solver-side file needed on the cluster
@@ -491,8 +493,10 @@ independent solver layouts, make one description file per root and repeat
 
 </details>
 
+<a id="how-jobs-are-divided"></a>
+
 <details>
-<summary><strong>🧩 How jobs are divided</strong></summary>
+<summary><strong>🧩 How jobs are divided</strong> <a href="#how-jobs-are-divided" title="Permalink to How jobs are divided">🔗</a></summary>
 
 SluM expands every solver command over the selected problems. `--batch-size`
 controls how many calls one array element runs sequentially. `--max-parallel`
@@ -516,8 +520,10 @@ process-tree limits.
 
 </details>
 
+<a id="limits-and-requests"></a>
+
 <details>
-<summary><strong>🎛️ Limits and requests</strong></summary>
+<summary><strong>🎛️ Limits and requests</strong> <a href="#limits-and-requests" title="Permalink to Limits and requests">🔗</a></summary>
 
 - `--cpu-limit`, `--wc-limit`, and `--mem-limit` limit each solver call through
   runsolver.
@@ -551,7 +557,7 @@ Use `--host HOST` when the cluster SSH name is not `slurmy`. Run
 <a id="results"></a>
 
 <details>
-<summary><strong>📂 Results</strong></summary>
+<summary><strong>📂 Results</strong> <a href="#results" title="Permalink to Results">🔗</a></summary>
 
 The remote directory contains:
 
