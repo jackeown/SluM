@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="-48 -48 512 512" role="img" aria-labelledby="title description">
+  <title id="title">SluM logo</title>
+  <desc id="description">A grid of green and red tasks whose green cells form the letter S.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#shadow)">
+    <rect width="416" height="416" rx="92" fill="#f3f4f6"/>
+    <g transform="translate(88 54)">
+      <!-- Green array tasks form an S. -->
+      <g fill="#22c55e">
+        <rect x="0" y="0" width="72" height="52" rx="14"/>
+        <rect x="84" y="0" width="72" height="52" rx="14"/>
+        <rect x="168" y="0" width="72" height="52" rx="14"/>
+        <rect x="0" y="64" width="72" height="52" rx="14"/>
+        <rect x="0" y="128" width="72" height="52" rx="14"/>
+        <rect x="84" y="128" width="72" height="52" rx="14"/>
+        <rect x="168" y="128" width="72" height="52" rx="14"/>
+        <rect x="168" y="192" width="72" height="52" rx="14"/>
+        <rect x="0" y="256" width="72" height="52" rx="14"/>
+        <rect x="84" y="256" width="72" height="52" rx="14"/>
+        <rect x="168" y="256" width="72" height="52" rx="14"/>
+      </g>
+      <!-- The remaining grid entries are red. -->
+      <g fill="#ef4444">
+        <rect x="84" y="64" width="72" height="52" rx="14"/>
+        <rect x="168" y="64" width="72" height="52" rx="14"/>
+        <rect x="0" y="192" width="72" height="52" rx="14"/>
+        <rect x="84" y="192" width="72" height="52" rx="14"/>
+      </g>
+    </g>
+  </g>
+</svg>
