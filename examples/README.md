@@ -9,7 +9,7 @@ see the [main SluM documentation](../README.md).
 
 <a id="available-examples"></a>
 
-<details open>
+<details>
 <summary><h2>📚 Available examples</h2></summary>
 
 | Directory | What `make` obtains and builds |

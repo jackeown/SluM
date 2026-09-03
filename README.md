@@ -10,7 +10,7 @@ separate tools for live monitoring and incremental result synchronization.
 
 <a id="overview"></a>
 
-<details open>
+<details>
 <summary><h2>🧭 Overview</h2></summary>
 
 ### 🔄 Workflow
@@ -39,7 +39,7 @@ scripts, Slurm commands, and the included `runsolver` binary directly.
 
 <a id="quick-start"></a>
 
-<details open>
+<details>
 <summary><h2>🚀 Quick start</h2></summary>
 
 ### ✅ Requirements
