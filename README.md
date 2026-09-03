@@ -13,7 +13,8 @@ separate tools for live monitoring and incremental result synchronization.
 <details>
 <summary><strong>🧭 Overview</strong></summary>
 
-### 🔄 Workflow
+<details>
+<summary><strong>🔄 Workflow</strong></summary>
 
 1. Describe one or more solver command lines and select the problem files.
 2. Run `slum.py` locally to generate `submit.sh` and `submit.sh.files/`.
@@ -24,7 +25,10 @@ separate tools for live monitoring and incremental result synchronization.
 Python runs only on the local machine. Compute nodes run the generated Bash
 scripts, Slurm commands, and the included `runsolver` binary directly.
 
-### 🗺️ Where to start
+</details>
+
+<details>
+<summary><strong>🗺️ Where to start</strong></summary>
 
 | Goal | Section |
 | --- | --- |
@@ -37,12 +41,15 @@ scripts, Slurm commands, and the included `runsolver` binary directly.
 
 </details>
 
+</details>
+
 <a id="quick-start"></a>
 
 <details>
 <summary><strong>🚀 Quick start</strong></summary>
 
-### ✅ Requirements
+<details>
+<summary><strong>✅ Requirements</strong></summary>
 
 On the local machine:
 
@@ -60,7 +67,10 @@ libraries, and CMake 3.14 or newer.
 
 `slurmy` is the default SSH host. It can be an alias in `~/.ssh/config`.
 
-### 📦 Install the Python dependencies
+</details>
+
+<details>
+<summary><strong>📦 Install the Python dependencies</strong></summary>
 
 `slum.py` and `slum-sync.py` use only the Python standard library. The
 `slum-monitor.py` dashboard additionally needs Textual, which is installed
@@ -84,7 +94,10 @@ python -m pip install -r requirements.txt
 If you use `.venv`, activate it again in each new terminal before running the
 dashboard.
 
-### 🧪 Run an included example
+</details>
+
+<details>
+<summary><strong>🧪 Run an included example</strong></summary>
 
 The Vampire example provides the shortest complete path from source code to a
 submitted experiment:
@@ -105,12 +118,15 @@ three-prover examples, as well as the available Makefile targets.
 
 </details>
 
+</details>
+
 <a id="create-your-own-submission"></a>
 
 <details>
 <summary><strong>🛠️ Create your own submission</strong></summary>
 
-### 1. 🔧 Build runsolver
+<details>
+<summary><strong>1. 🔧 Build runsolver</strong></summary>
 
 Build the portable static runsolver binary for inclusion in the generated
 submission files:
@@ -123,7 +139,10 @@ This creates `runsolver-build/runsolver`. SluM copies it to
 `submit.sh.files/runsolver`. The build helper needs a C++ compiler, `make`,
 `curl`, and standard archive tools.
 
-### 2. 📝 Describe the solver
+</details>
+
+<details>
+<summary><strong>2. 📝 Describe the solver</strong></summary>
 
 Create `vampire.solver`:
 
@@ -171,7 +190,10 @@ sources.
 Add more command lines to define more configurations. Repeat `--solver` to use
 more solver description files.
 
-### 3. ⚙️ Generate the submission files
+</details>
+
+<details>
+<summary><strong>3. ⚙️ Generate the submission files</strong></summary>
 
 ```bash
 slum_args=(
@@ -214,7 +236,10 @@ payloads or remote programs hidden inside SSH command strings. Keep
 The generated `submit.sh` documents its fixed configuration, companion files,
 and each packaging and submission stage directly in comments.
 
-### 4. 🚀 Inspect and submit
+</details>
+
+<details>
+<summary><strong>4. 🚀 Inspect and submit</strong></summary>
 
 The most useful files to inspect are:
 
@@ -253,6 +278,8 @@ ssh slurmy sacct -j 123456
 
 </details>
 
+</details>
+
 <a id="monitor-and-retrieve-jobs"></a>
 
 <details>
@@ -260,7 +287,8 @@ ssh slurmy sacct -j 123456
 
 <a id="monitor-jobs"></a>
 
-### 👀 Monitor jobs
+<details>
+<summary><strong>👀 Monitor jobs</strong></summary>
 
 Open the interactive dashboard on your laptop:
 
@@ -317,9 +345,12 @@ The dashboard distinguishes a solver `time-limit` from Slurm's `TIMEOUT`
 state. The former is expected; the latter means Slurm stopped an array task
 before SluM saved all of its results, so it is an execution error.
 
+</details>
+
 <a id="sync-results"></a>
 
-### 📥 Sync results
+<details>
+<summary><strong>📥 Sync results</strong></summary>
 
 Download the latest SluM job from `slurmy`:
 
@@ -366,6 +397,8 @@ complete while reporting 0% solved.
 
 </details>
 
+</details>
+
 <a id="advanced-usage"></a>
 
 <details>
@@ -373,7 +406,8 @@ complete while reporting 0% solved.
 
 <a id="structuring-larger-submissions"></a>
 
-### 📁 Structuring larger submissions
+<details>
+<summary><strong>📁 Structuring larger submissions</strong></summary>
 
 Treat the solver root named on the first line of a solver description as a
 self-contained directory. Put every solver-side file needed on the cluster
@@ -437,7 +471,10 @@ or selected problems between generating and running `submit.sh`. For multiple
 independent solver layouts, make one description file per root and repeat
 `--solver`.
 
-### 🧩 How jobs are divided
+</details>
+
+<details>
+<summary><strong>🧩 How jobs are divided</strong></summary>
 
 SluM expands every solver command over the selected problems. `--batch-size`
 controls how many calls one array element runs sequentially. `--max-parallel`
@@ -459,7 +496,10 @@ at most 10 elements running at once
 Each individual call still gets its own runsolver CPU, wall-clock, memory, and
 process-tree limits.
 
-### 🎛️ Limits and requests
+</details>
+
+<details>
+<summary><strong>🎛️ Limits and requests</strong></summary>
 
 - `--cpu-limit`, `--wc-limit`, and `--mem-limit` limit each solver call through
   runsolver.
@@ -483,6 +523,8 @@ starts with `--`:
 
 Use `--host HOST` when the cluster SSH name is not `slurmy`. Run
 `./slum.py --help` for every option.
+
+</details>
 
 </details>
 

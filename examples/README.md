@@ -47,7 +47,8 @@ make monitor
 Use `examples/example-e` or `examples/example-drodi` in the first command to
 run the corresponding example.
 
-### 🛠️ Makefile targets
+<details>
+<summary><strong>🛠️ Makefile targets</strong></summary>
 
 The single-prover Makefiles provide the same targets:
 
@@ -60,7 +61,10 @@ The single-prover Makefiles provide the same targets:
 | `make clean` | Remove only `submit.sh` and `submit.sh.files/` |
 | `make distclean` | Also remove that example's downloaded source and built prover binary |
 
-### ✅ Expected results
+</details>
+
+<details>
+<summary><strong>✅ Expected results</strong></summary>
 
 Connect to the TU Wien VPN before running `submit.sh` if `slurmy` is not
 reachable directly. Each single-prover example submits two array elements to
@@ -73,6 +77,8 @@ PUZ001+1.p  Theorem
 ALG002-1.p  Unsatisfiable
 ALG299-1.p  Satisfiable
 ```
+
+</details>
 
 </details>
 
