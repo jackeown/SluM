@@ -110,51 +110,34 @@ This creates `runsolver-build/runsolver`. SluM copies it to
 <details>
 <summary><strong>2. 📝 Describe the solver</strong></summary>
 
-Create `vampire.solver`:
+Create `solver.solver`. The comments shown here are valid description-file
+comments and are ignored by SluM:
 
 ```text
-/path/to/vampire-directory
-./vampire --mode casc --cores 1 --time_limit {{cpu-limit}} {{problem}}
+./solver-root
+# The first line above is the directory to package. Relative paths start from
+# the directory containing this description file. Commands run from the
+# packaged copy of that directory on the cluster.
+#
+# Every later non-empty, non-comment line is a complete solver configuration.
+# Supported variables in those command lines are:
+#   {{problem}}                    one call for every problem selected by every --problems glob
+#   {{problem=benchmarks/test.p}}  one call for only this file; paths are relative to solver.solver
+#   {{cpu-limit}}                  CPU limit in seconds
+#   {{wc-limit}}                   wall-clock limit in seconds
+#   {{mem-limit}}                  memory limit in decimal megabytes
+#
+# This configuration runs once for every selected problem:
+./bin/my-solver --strategy default --cpu-limit {{cpu-limit}} --wall-limit {{wc-limit}} --memory-limit-mb {{mem-limit}} {{problem}}
+# A second configuration produces another call for every selected problem:
+./bin/my-solver --strategy fallback --cpu-limit {{cpu-limit}} {{problem}}
+# A specific problem produces only this one call and does not expand the globs:
+./bin/my-solver --check-only {{problem=benchmarks/smoke-test.p}}
+#
+# Each command must use either generic or specific problem variables, not both.
+# Commands are trusted shell input, so use only descriptions you trust.
+# Use one description per solver root and repeat --solver to add more solvers.
 ```
-
-The first line is the directory to package. Every following non-empty,
-non-comment line is a command to run from that directory.
-
-These are all variables supported in solver command lines:
-
-| Variable | Meaning |
-| --- | --- |
-| `{{problem}}` | Generate one call for every file selected by `--problems` |
-| `{{problem=/path/file.p}}` | Generate one call for this specific problem |
-| `{{cpu-limit}}` | CPU limit in seconds |
-| `{{wc-limit}}` | Wall-clock limit in seconds |
-| `{{mem-limit}}` | Memory limit in decimal megabytes |
-
-The problem variable determines which problems are used with that configuration
-line:
-
-```text
-./vampire --mode casc {{problem}}
-```
-
-With `{{problem}}`, SluM generates one solver call for every file selected by
-`--problems`.
-
-```text
-./vampire --mode casc {{problem=/path/to/one-problem.p}}
-```
-
-With `{{problem=/path/to/one-problem.p}}`, SluM generates only one call for
-that configuration, using the named problem. The problems selected by
-`--problems` are not added to that configuration.
-
-Every command must use one of these two forms. Do not mix generic `{{problem}}`
-and specific `{{problem=/path/file.p}}` variables in one command. Solver
-descriptions are trusted shell commands; do not use descriptions from untrusted
-sources.
-
-Add more command lines to define more configurations. Repeat `--solver` to use
-more solver description files.
 
 </details>
 
@@ -168,8 +151,9 @@ slum_args=(
   --mem-limit 2GiB                               # Memory limit enforced on each solver call.
   --cpu-request 1-core                           # Slurm CPUs requested for each array element.
   --memory-request 2300MiB                       # Slurm memory request; leave room above mem-limit.
-  --problems 'problems/**/*.p'                   # Quoted glob selecting all input problem files.
-  --solver vampire.solver                        # Solver root and command-line configurations.
+  --problems 'problems/easy/**/*.p'              # Add every file matched by this quoted glob.
+  --problems 'problems/hard/**/*.p'              # Add these matches too; duplicate paths are removed.
+  --solver solver.solver                         # Solver root and command-line configurations.
   --runsolver runsolver-build/runsolver          # Local runsolver binary copied to the cluster.
   --batch-size 20                                # Solver calls run sequentially in each array element.
   --max-parallel 100                             # Maximum number of Slurm array elements allowed to run simultaneously.
@@ -179,7 +163,9 @@ slum_args=(
 ./slum.py "${slum_args[@]}"                      # Generate files locally; do not submit yet.
 ```
 
-This does not contact the cluster. It creates:
+All `--problems` occurrences contribute to one problem set. Every glob must
+match at least one regular file, and files matched more than once appear only
+once. Generating the submission does not contact the cluster. It creates:
 
 ```text
 submit.sh                         # Laptop script that packages, copies, and submits the job.
