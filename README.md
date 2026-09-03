@@ -11,7 +11,7 @@ separate tools for live monitoring and incremental result synchronization.
 <a id="overview"></a>
 
 <details>
-<summary><h2>🧭 Overview</h2></summary>
+<summary><strong>🧭 Overview</strong></summary>
 
 ### 🔄 Workflow
 
@@ -40,7 +40,7 @@ scripts, Slurm commands, and the included `runsolver` binary directly.
 <a id="quick-start"></a>
 
 <details>
-<summary><h2>🚀 Quick start</h2></summary>
+<summary><strong>🚀 Quick start</strong></summary>
 
 ### ✅ Requirements
 
@@ -108,7 +108,7 @@ three-prover examples, as well as the available Makefile targets.
 <a id="create-your-own-submission"></a>
 
 <details>
-<summary><h2>🛠️ Create your own submission</h2></summary>
+<summary><strong>🛠️ Create your own submission</strong></summary>
 
 ### 1. 🔧 Build runsolver
 
@@ -256,7 +256,7 @@ ssh slurmy sacct -j 123456
 <a id="monitor-and-retrieve-jobs"></a>
 
 <details>
-<summary><h2>📊 Monitor and retrieve jobs</h2></summary>
+<summary><strong>📊 Monitor and retrieve jobs</strong></summary>
 
 <a id="monitor-jobs"></a>
 
@@ -369,7 +369,7 @@ complete while reporting 0% solved.
 <a id="advanced-usage"></a>
 
 <details>
-<summary><h2>🧠 Advanced usage</h2></summary>
+<summary><strong>🧠 Advanced usage</strong></summary>
 
 <a id="structuring-larger-submissions"></a>
 
@@ -489,7 +489,7 @@ Use `--host HOST` when the cluster SSH name is not `slurmy`. Run
 <a id="results"></a>
 
 <details>
-<summary><h2>📂 Results</h2></summary>
+<summary><strong>📂 Results</strong></summary>
 
 The remote directory contains:
 

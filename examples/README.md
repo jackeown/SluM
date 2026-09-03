@@ -10,7 +10,7 @@ see the [main SluM documentation](../README.md).
 <a id="available-examples"></a>
 
 <details>
-<summary><h2>📚 Available examples</h2></summary>
+<summary><strong>📚 Available examples</strong></summary>
 
 | Directory | What `make` obtains and builds |
 | --- | --- |
@@ -24,7 +24,7 @@ see the [main SluM documentation](../README.md).
 <a id="single-prover-workflow"></a>
 
 <details>
-<summary><h2>🚀 Single-prover workflow</h2></summary>
+<summary><strong>🚀 Single-prover workflow</strong></summary>
 
 Each single-prover example contains the same three real TPTP problems and a
 Makefile. The examples do not contain checked-in prover binaries or source
@@ -79,7 +79,7 @@ ALG299-1.p  Satisfiable
 <a id="combined-example"></a>
 
 <details>
-<summary><h2>🔬 Combined example</h2></summary>
+<summary><strong>🔬 Combined example</strong></summary>
 
 The combined example exercises multiple solver descriptions in one SluM job.
 Its `problems/easy/` directory contains five low-rated TPTP problems, while
