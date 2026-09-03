@@ -17,7 +17,7 @@ all: build
 	solver_file=$$(mktemp); \
 	trap 'rm -f -- "$$solver_file"' EXIT INT TERM; \
 	printf '%s\n' '$(CURDIR)/bin' \
-		'./drodi -cores(1) -timeout({{cpu-limit}}) {{problem}}' \
+		"./drodi '-cores(1)' '-timeout({{cpu-limit}})' {{problem}}" \
 		> "$$solver_file"; \
 	python ../../slum.py \
 		--cpu-limit 8 \

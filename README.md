@@ -22,7 +22,8 @@ Requirements:
 - Passwordless or otherwise non-interactive SSH access to the cluster
 
 Building all three included prover examples additionally requires `git`,
-`curl`, `sha256sum`, `make`, C and C++ compilers, and CMake 3.14 or newer.
+`curl`, `sha256sum`, `make`, C and C++ compilers with their static standard
+libraries, and CMake 3.14 or newer.
 
 `slurmy` is the default SSH host. It can be an alias in `~/.ssh/config`.
 
@@ -300,14 +301,16 @@ provers:
 
 | Directory | What `make` obtains and builds |
 | --- | --- |
-| [`example-vampire`](examples/example-vampire/) | The latest Vampire source from its [official Git repository](https://github.com/vprover/vampire), including the CaDiCaL and VIRAS submodules; built in CMake release mode |
+| [`example-vampire`](examples/example-vampire/) | The latest Vampire source from its [official Git repository](https://github.com/vprover/vampire), including the CaDiCaL and VIRAS submodules; built as a static CMake release binary for cluster portability |
 | [`example-e`](examples/example-e/) | The latest E source from its [official Git repository](https://github.com/eprover/eprover); configured and rebuilt as a first-order prover |
 | [`example-drodi`](examples/example-drodi/) | Drodi 4.1.1 from its [official CASC-J13 source archive](https://tptp.org/CASC/J13/SystemSources/Drodi---4.1.1.tgz); the archive is checked against the SHA-256 recorded in the Makefile before compilation |
+| [`example-combined`](examples/example-combined/) | All three provers in one submission, run on five easy and five hard problems with a three-second CPU limit per call |
 
-Each example contains the same three real TPTP problems and a Makefile. It does
-not contain a checked-in prover binary or source tree. On the first run,
-`make` downloads and builds the prover, builds runsolver if necessary, and then
-calls `slum.py` to create `submit.sh` and `submit.sh.files/`.
+Each single-prover example contains the same three real TPTP problems and a
+Makefile. The examples do not contain checked-in prover binaries or source
+trees. On the first run, `make` downloads and builds the required prover or
+provers, builds runsolver if necessary, and then calls `slum.py` to create
+`submit.sh` and `submit.sh.files/`.
 
 For example, build, inspect, and submit Vampire:
 
@@ -322,7 +325,8 @@ make monitor
 ```
 
 Use `examples/example-e` or `examples/example-drodi` in the first command to
-run the corresponding example. All three Makefiles have the same targets:
+run the corresponding example. The single-prover Makefiles have the same
+targets:
 
 | Command | Effect |
 | --- | --- |
@@ -334,16 +338,59 @@ run the corresponding example. All three Makefiles have the same targets:
 | `make distclean` | Also remove that example's downloaded source and built prover binary |
 
 Connect to the TU Wien VPN before running `submit.sh` if `slurmy` is not
-reachable directly. Each example submits two array elements to `CPU-amd`.
-Vampire and E should quickly report the following expected statuses; Drodi
-also proves the first two within the example limit but may time out on the
-satisfiable problem:
+reachable directly. Each single-prover example submits two array elements to
+`CPU-amd`. Vampire and E should quickly report the following expected statuses;
+Drodi also proves the first two within the example limit but may time out on
+the satisfiable problem:
 
 ```text
 PUZ001+1.p  Theorem
 ALG002-1.p  Unsatisfiable
 ALG299-1.p  Satisfiable
 ```
+
+### Combined example
+
+The combined example exercises multiple solver descriptions in one SluM job.
+Its `problems/easy/` directory contains five low-rated TPTP problems, while
+`problems/hard/` contains five problems taken from the locally curated hard
+benchmark set. All ten are self-contained FOF or CNF files with no external
+axiom includes.
+
+```text
+easy: ALG002-1, PUZ001+1, PUZ002-1, PUZ003-1, PUZ004-1
+hard: MPT0554+1, MPT1048+1, MPT1388+1, MPT1787+1, MPT1887+1
+```
+
+Running `make` builds the three single-prover examples and generates 30 calls:
+each of Vampire, E, and Drodi on every problem. The calls are divided among six
+Slurm array tasks, with a three-second CPU limit and six-second wall-clock
+limit per prover call.
+
+```bash
+cd examples/example-combined
+make
+make submit
+make sync
+```
+
+`make sync` follows the latest remote SluM job until it completes and stores
+the incrementally downloaded results under `slum-results/` at the repository
+root. To avoid relying on which remote job is newest, pass the SluM ID printed
+by `make submit` explicitly:
+
+```bash
+make sync SLUM_ID=alice_1786464000_12345
+```
+
+Use `make monitor` instead when you want to watch the same run interactively.
+`make distclean` removes the generated submission together with the source
+trees and binaries shared with the three single-prover examples.
+
+The expected three-second test pattern is that every prover solves the easy
+set, while the hard set produces a mixture of solutions and ordinary time
+limits. Exact hard-problem results can change when the Makefiles fetch newer
+Vampire or E revisions.
 
 ## Structuring larger submissions
 

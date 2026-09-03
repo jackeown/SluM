@@ -23,7 +23,7 @@ import textwrap
 from typing import Any, Sequence
 
 
-VERSION = "0.4.0"
+VERSION = "0.4.1"
 DEFAULT_REMOTE_HOST = "slurmy"
 DEFAULT_BATCH_SIZE = 50
 DEFAULT_MAX_PARALLEL = 100
@@ -532,10 +532,20 @@ def build_slurm_script(
                 /bin/bash -c "$TASK_COMMAND" >"$controller_log" 2>&1 &
             ACTIVE_PID=$!
             wait "$ACTIVE_PID"
-            return_code=$?
+            runsolver_return_code=$?
             ACTIVE_PID=
             set -e
             cd "$old_pwd"
+
+            # runsolver itself normally exits successfully even when the
+            # measured command does not. Its watcher report preserves the
+            # command's exit status, which is the value users need to see.
+            child_status=$(sed -n 's/^Child status:[[:space:]]*//p' "$watcher_log" 2>/dev/null | tail -n 1)
+            if [[ "$child_status" =~ ^[0-9]+$ ]]; then
+                return_code=$child_status
+            else
+                return_code=$runsolver_return_code
+            fi
 
             timeout=$(read_var TIMEOUT "$var_file")
             memout=$(read_var MEMOUT "$var_file")

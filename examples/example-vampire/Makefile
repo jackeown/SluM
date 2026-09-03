@@ -57,9 +57,10 @@ $(SOURCE)/.submodules-ready: $(SOURCE)/.git
 	}
 	@touch '$@'
 
-$(VAMPIRE): $(SOURCE)/.submodules-ready
-	@printf '\033[1;34m🔨 Building Vampire in release mode...\033[0m\n'
-	cmake -S '$(SOURCE)' -B '$(SOURCE)/build' -DCMAKE_BUILD_TYPE=Release
+$(VAMPIRE): $(SOURCE)/.submodules-ready Makefile
+	@printf '\033[1;34m🔨 Building a portable static Vampire in release mode...\033[0m\n'
+	cmake -S '$(SOURCE)' -B '$(SOURCE)/build' \
+		-DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=OFF
 	cmake --build '$(SOURCE)/build' --parallel '$(JOBS)'
 	mkdir -p -- '$(dir $@)'
 	install -m 0755 -- '$(SOURCE)/build/vampire' '$@'
