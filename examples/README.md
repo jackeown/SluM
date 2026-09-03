@@ -7,10 +7,8 @@ the resulting Slurm jobs.
 For installation, custom solver descriptions, and the full command reference,
 see the [main SluM documentation](../README.md).
 
-<a id="available-examples"></a>
-
 <details>
-<summary><strong>📚 Available examples</strong> <a href="#available-examples" title="Permalink to Available examples">🔗</a></summary>
+<summary><strong>📚 Available examples</strong></summary>
 
 | Directory | What `make` obtains and builds |
 | --- | --- |
@@ -21,10 +19,8 @@ see the [main SluM documentation](../README.md).
 
 </details>
 
-<a id="single-prover-workflow"></a>
-
 <details>
-<summary><strong>🚀 Single-prover workflow</strong> <a href="#single-prover-workflow" title="Permalink to Single-prover workflow">🔗</a></summary>
+<summary><strong>🚀 Single-prover workflow</strong></summary>
 
 <blockquote>
 
@@ -49,10 +45,8 @@ make monitor
 Use `examples/example-e` or `examples/example-drodi` in the first command to
 run the corresponding example.
 
-<a id="makefile-targets"></a>
-
 <details>
-<summary><strong>🛠️ Makefile targets</strong> <a href="#makefile-targets" title="Permalink to Makefile targets">🔗</a></summary>
+<summary><strong>🛠️ Makefile targets</strong></summary>
 
 The single-prover Makefiles provide the same targets:
 
@@ -67,10 +61,8 @@ The single-prover Makefiles provide the same targets:
 
 </details>
 
-<a id="expected-results"></a>
-
 <details>
-<summary><strong>✅ Expected results</strong> <a href="#expected-results" title="Permalink to Expected results">🔗</a></summary>
+<summary><strong>✅ Expected results</strong></summary>
 
 Connect to the TU Wien VPN before running `submit.sh` if `slurmy` is not
 reachable directly. Each single-prover example submits two array elements to
@@ -90,10 +82,8 @@ ALG299-1.p  Satisfiable
 
 </details>
 
-<a id="combined-example"></a>
-
 <details>
-<summary><strong>🔬 Combined example</strong> <a href="#combined-example" title="Permalink to Combined example">🔗</a></summary>
+<summary><strong>🔬 Combined example</strong></summary>
 
 The combined example exercises multiple solver descriptions in one SluM job.
 Its `problems/easy/` directory contains five low-rated TPTP problems, while
