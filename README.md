@@ -1,8 +1,9 @@
-<p align="center">
-  <img src="logo.svg" alt="SluM logo" width="240">
-</p>
+<div align="center">
+  <img src="logo.svg" alt="SluM logo" width="240"><br>
 
 # SluM
+
+</div>
 
 Run reproducible, resource-limited theorem-prover experiments on a Slurm
 cluster.
