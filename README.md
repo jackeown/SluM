@@ -8,6 +8,9 @@ Slurm job-array submission. It copies everything the experiment needs to the
 cluster, measures and limits each solver call with `runsolver`, and provides
 separate tools for live monitoring and incremental result synchronization.
 
+
+## Usage
+
 1. Describe one or more solver command lines and select the problem files.
 2. Run `slum.py` locally to generate `submit.sh` and `submit.sh.files/`.
 3. Inspect and run `submit.sh` to copy the experiment and submit a Slurm array.
@@ -16,6 +19,9 @@ separate tools for live monitoring and incremental result synchronization.
 
 Python runs only on the local machine. Compute nodes run the generated Bash
 scripts, Slurm commands, and the included `runsolver` binary directly.
+
+
+---
 
 <details>
 <summary><strong>🚀 Quick start</strong></summary>
