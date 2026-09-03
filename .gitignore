@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+/.venv/
+/submit.sh
+/slum-results/
+/runsolver-build/runsolver
+/examples/example-*/source/
+/examples/example-*/bin/
+/examples/example-*/submit.sh
+/examples/example-*/submit.sh.files/
